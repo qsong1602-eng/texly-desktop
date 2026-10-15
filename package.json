@@ -1,0 +1,63 @@
+{
+  "name": "texly-desktop",
+  "version": "0.2.2",
+  "author": "TeXly Contributors",
+  "private": true,
+  "description": "A local-first Overleaf-style LaTeX editor for Windows",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "npm run build:main && concurrently -k \"vite\" \"wait-on http://127.0.0.1:5173 && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "build:main": "tsc -p electron/tsconfig.json",
+    "build": "npm run build:main && vite build",
+    "dist": "npm run build && electron-builder --win nsis",
+    "typecheck": "tsc --noEmit && tsc -p electron/tsconfig.json --noEmit",
+    "test": "npm run build:main && node --test tests/compile.test.cjs",
+    "test:integration": "npm run build:main && node tests/compile-integration.cjs"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.7.0",
+    "adm-zip": "^0.5.16",
+    "lucide-react": "^0.468.0",
+    "monaco-editor": "^0.52.2",
+    "pdfjs-dist": "^4.10.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "cn.texly.desktop",
+    "productName": "TeXly",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "node_modules/adm-zip/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

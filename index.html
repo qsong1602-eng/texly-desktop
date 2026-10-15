@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10261f" />
+    <title>TeXly — 本地 LaTeX 工作台</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      if (location.protocol === 'file:' && !window.texly) {
+        document.getElementById('root').innerHTML = `
+          <main style="min-height:100vh;display:grid;place-items:center;background:#f5f6f3;color:#24302a;font-family:'Segoe UI Variable','Microsoft YaHei UI',sans-serif;padding:32px">
+            <section style="max-width:620px;background:#fff;border:1px solid #dce2dd;border-radius:12px;padding:40px;box-shadow:0 18px 60px rgba(16,38,31,.12)">
+              <div style="font-size:12px;letter-spacing:.16em;color:#176b4a;font-weight:700">TEXLY DESKTOP</div>
+              <h1 style="font-size:28px;margin:12px 0">这里是开发源码入口</h1>
+              <p style="line-height:1.8;color:#64706a">根目录的 <code>index.html</code> 需要由 Vite 和 Electron 加载，不能通过浏览器的 <code>file://</code> 地址直接运行。</p>
+              <p style="line-height:1.8"><strong>请从开始菜单启动 TeXly</strong>，或运行：</p>
+              <code style="display:block;padding:14px;background:#10261f;color:#dff1e8;border-radius:6px;word-break:break-all">C:\\Users\\Lenovo\\AppData\\Local\\Programs\\TeXly\\TeXly.exe</code>
+            </section>
+          </main>`
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
